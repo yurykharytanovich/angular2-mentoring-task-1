@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import {CoursesModule} from "./pages/courses/courses.module";
+import {FooterModule} from "./core/components/footer/footer.module";
+import {HeaderModule} from "./core/components/header/header.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    HeaderModule,
+    FooterModule,
+    CoursesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

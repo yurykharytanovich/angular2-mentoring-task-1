@@ -1,0 +1,24 @@
+.course-item {
+    display: flex;
+}
+
+.info-group {
+    max-width: 450px;
+}
+
+.course-info-header {
+    margin: 10px;
+}
+
+.course-info-date {
+    margin-left: 55px;
+}
+
+.button-group {
+    display: flex;
+    flex-flow:column;
+}
+
+.button-group > button {
+    margin: 5px;
+}

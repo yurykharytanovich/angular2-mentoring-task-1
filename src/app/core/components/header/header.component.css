@@ -1,0 +1,21 @@
+.header {
+    padding: 1px;
+}
+
+.logo-pannel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+}
+
+.login-group {
+    padding: 1px;
+}
+
+.search-pannel {
+    padding: 1px;
+}

@@ -1,0 +1,10 @@
+.main-footer {
+    position: fixed;
+    bottom: 0;
+}
+
+:host {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
