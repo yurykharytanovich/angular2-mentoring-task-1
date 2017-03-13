@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
 	providers: []
 })
 export class HeaderComponent {
+
+	public query: string = '';
 	constructor() {
 
+	}
+
+	onFindClick() {
+		console.log(this.query)
 	}
 }

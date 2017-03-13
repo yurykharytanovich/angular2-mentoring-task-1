@@ -11,8 +11,8 @@
     </div>
 
     <div class="search-pannel">
-        <input type="text">
-        <button>Find</button>
+        <input type="text" [value]="query" (input)="query = $event.target.value">
+        <button (click)="onFindClick()">Find</button>
         <button><img src="">Add course</button>
     </div>
 

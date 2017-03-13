@@ -1,5 +1,5 @@
 ﻿// angular modules
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // custom components
@@ -19,7 +19,7 @@ import { CourseItemComponent } from './course-item/course-item.component';
 	],
 	providers: []
 })
-export class CoursesModule {
+export class CoursesModule{
 	constructor() {
 	}
 }
