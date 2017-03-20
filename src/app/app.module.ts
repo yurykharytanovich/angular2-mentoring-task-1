@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import {CoursesModule} from "./pages/courses/courses.module";
 import {FooterModule} from "./core/components/footer/footer.module";
 import {HeaderModule} from "./core/components/header/header.module";
+import {LoginService} from "./services/login.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HeaderModule} from "./core/components/header/header.module";
     FooterModule,
     CoursesModule
   ],
-  providers: [],
+  providers: [{provide:'loginService', useClass:LoginService}],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

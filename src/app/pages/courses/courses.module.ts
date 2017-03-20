@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 // custom components
 import { CoursesComponent } from './courses.component';
 import { CourseItemComponent } from './course-item/course-item.component';
+import {CoursesService} from "../../services/courses.service";
 
 @NgModule({
 	declarations: [
@@ -17,7 +18,7 @@ import { CourseItemComponent } from './course-item/course-item.component';
 	exports: [
 		CoursesComponent
 	],
-	providers: []
+	providers: [{provide:'coursesService', useClass:CoursesService}]
 })
 export class CoursesModule{
 	constructor() {

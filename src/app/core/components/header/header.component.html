@@ -1,19 +1,25 @@
 <div class="header">
     <div class="logo-pannel">
         <div class="logo-group">
-            <img src="../../../../favicon.ico" alt="">
-            <div>BreadCrumb</div>
+            <img src="../../../../favicon.ico" alt=""/>
+            <div *ngIf="isAuthenticated">BreadCrumb</div>
         </div>
         <div class="login-group">
-            <div>user login</div>
-            <a href="#">logoff</a>
+            <div>{{currentUser}}</div>
+            <a href="#" (click)="onLogOutClick()">logoff</a>
         </div>
     </div>
 
-    <div class="search-pannel">
+    <div class="search-pannel" *ngIf="isAuthenticated">
         <input type="text" [value]="query" (input)="query = $event.target.value">
         <button (click)="onFindClick()">Find</button>
         <button><img src="">Add course</button>
     </div>
+
+  <div *ngIf="!isAuthenticated" class="login">
+    <input type="text" [value]="user" (input)="user = $event.target.value">
+    <input type="text" [value]="password" (input)="password = $event.target.value">
+    <button (click)="onLoginClick()">Login</button>
+  </div>
 
 </div>

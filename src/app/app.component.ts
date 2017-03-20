@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app works!';
+export class AppComponent implements OnInit{
+  isAuthenticated: boolean;
+  constructor(
+    @Inject('loginService') private loginService
+  ) {	}
+
+  public ngOnInit() {
+    this.isAuthenticated = this.loginService.isAuthenticated();
+  }
+
 }
