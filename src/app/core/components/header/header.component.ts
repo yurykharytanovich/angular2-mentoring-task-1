@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'main-header',
 	templateUrl: 'header.component.html',
 	styles: [require('./header.component.css')],
-	providers: []
+	providers: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit{
 

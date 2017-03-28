@@ -1,10 +1,11 @@
-import {Component, OnInit, Output, OnDestroy, Inject, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, OnDestroy, Inject, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import Course from "../../core/entities/course.class";
 
 @Component({
 	selector: 'courses',
 	styles: [require('./courses.styles.css')],
-	template: require('./courses.template.html')
+	template: require('./courses.template.html'),
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
@@ -17,7 +18,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ) {}
 
 	public ngOnInit() {
-      this.courses = this.coursesService.getCourses();
+      this.courses = this.coursesService.courses1;
+		this.coursesService.courses1.subscribe(() => {
+			debugger;
+		})
 	}
 
 	public ngOnDestroy() {
