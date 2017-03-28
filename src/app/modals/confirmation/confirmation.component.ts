@@ -1,0 +1,17 @@
+import {Component, Output, EventEmitter} from '@angular/core';
+
+@Component({
+  selector: 'confirmation',
+  templateUrl: 'confirmation.component.html',
+  styleUrls: ['confirmation.component.css']
+})
+export class ConfirmationComponent {
+
+  @Output() public confirmationResponse = new EventEmitter();
+
+  constructor() { }
+
+  onResponseClick(response) {
+    this.confirmationResponse.emit({response});
+  }
+}

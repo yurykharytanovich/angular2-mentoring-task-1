@@ -39,7 +39,6 @@ export class LoginService {
   }
 
   getUserInfo():string {
-    debugger;
     const loginObject = JSON.parse(localStorage.getItem('loginObject'));
     return this.authenticated ? loginObject && loginObject.user : '';
   }

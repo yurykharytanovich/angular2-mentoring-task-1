@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import {Component, OnInit, Output, OnDestroy, Inject, EventEmitter} from '@angular/core';
 import Course from "../../core/entities/course.class";
 
 @Component({
@@ -9,6 +9,9 @@ import Course from "../../core/entities/course.class";
 export class CoursesComponent implements OnInit, OnDestroy {
 
 	private courses: Course[] = [];
+	@Output() public requestDeleteConfirmation = new EventEmitter();
+
+
 	constructor(
     @Inject('coursesService') private coursesService
   ) {}
@@ -17,12 +20,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.courses = this.coursesService.getCourses();
 	}
 
-	public onItemDelete(event) {
-		console.log(`Course with id ${event.id} has been deleted.`);
-    this.coursesService.deleteCourse(event.id);
+	public ngOnDestroy() {
 	}
 
-
-	public ngOnDestroy() {
+	public onItemDelete(event) {
+		console.log(`Course with id ${event.id} will be deleted.`);
+		this.requestDeleteConfirmation.emit({
+			id: event.id
+		});
 	}
 }

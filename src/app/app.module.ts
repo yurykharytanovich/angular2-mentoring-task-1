@@ -8,10 +8,11 @@ import {CoursesModule} from "./pages/courses/courses.module";
 import {FooterModule} from "./core/components/footer/footer.module";
 import {HeaderModule} from "./core/components/header/header.module";
 import {LoginService} from "./services/login.service";
+import {ModalsModule} from "./modals/modals.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +20,7 @@ import {LoginService} from "./services/login.service";
     HttpModule,
     HeaderModule,
     FooterModule,
+    ModalsModule,
     CoursesModule
   ],
   providers: [{provide:'loginService', useClass:LoginService}],
