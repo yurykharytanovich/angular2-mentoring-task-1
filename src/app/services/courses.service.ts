@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import Course from "../core/entities/course.class";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable()
 export class CoursesService {
-  _courses: BehaviorSubject<Course[]> = <BehaviorSubject<Course[]>>new BehaviorSubject([]);
+  private _courses: BehaviorSubject<Course[]>;
+  private courses: Course[];
 
-   private courses: Course[];
   constructor() {
-
     this.courses = [
       new Course("webpack",
         "This course. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam architecto aut blanditiis eveniet ipsam iste maxime obcaecati quo rem, ut.",
@@ -25,16 +24,11 @@ export class CoursesService {
         45,
         new Date()
       )
-    ]
-
-    this._courses.next(this.courses);
+    ];
+    this._courses = <BehaviorSubject<Course[]>>new BehaviorSubject(this.courses);
   }
 
-  getCourses(): Course[]{
-    return this.courses;
-  }
-
-  get courses1() {
+  getCourses(): Observable<Course[]> {
     return this._courses.asObservable();
   }
 
@@ -61,7 +55,7 @@ export class CoursesService {
     if(index > -1) {
       this.courses.splice(index,1);
     }
-    this._courses.next(this.courses)
+    this._courses.next(this.courses);
   }
 
 }

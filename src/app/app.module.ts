@@ -9,6 +9,8 @@ import {FooterModule} from "./core/components/footer/footer.module";
 import {HeaderModule} from "./core/components/header/header.module";
 import {LoginService} from "./services/login.service";
 import {ModalsModule} from "./modals/modals.module";
+import {LoaderBlockModule} from "./core/components/loader-block/loader-block.module";
+import {LoaderBlockService} from "./services/loader-block.service";
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import {ModalsModule} from "./modals/modals.module";
   ],
   imports: [
     BrowserModule,
+    LoaderBlockModule,
     FormsModule,
     HttpModule,
     HeaderModule,
@@ -23,7 +26,10 @@ import {ModalsModule} from "./modals/modals.module";
     ModalsModule,
     CoursesModule
   ],
-  providers: [{provide:'loginService', useClass:LoginService}],
+  providers: [
+      { provide:'loginService', useClass:LoginService },
+      { provide:'loaderBlockService', useClass:LoaderBlockService}
+  ],
 
   bootstrap: [AppComponent]
 })

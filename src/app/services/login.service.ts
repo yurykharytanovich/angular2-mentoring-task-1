@@ -1,46 +1,45 @@
 import { Injectable, NgZone } from '@angular/core';
+import {Observable, BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class LoginService {
-
-  private user: string = 'user1';
-  private password: string = 'password1';
-  private authenticated: boolean;
-  private zone: NgZone;
-  constructor(zone: NgZone) {
-    this.zone = zone;
+  public __user: string = 'user1';
+  public __password: string = 'password1';
+  private user: string = this.__user;
+  private password: string = this.__password;
+  private authenticated: BehaviorSubject<boolean>;
+  private userInfo: BehaviorSubject<string>;
+  private LOGIN_TIMEOUT: number = 2000;
+  constructor() {
     const loginObject = JSON.parse(localStorage.getItem('loginObject'));
+    const isLogin = loginObject && loginObject.user === this.user && loginObject.password === this.password;
 
-    this.authenticated = loginObject && loginObject.user === this.user && loginObject.password === this.password;
+    this.authenticated = <BehaviorSubject<boolean>>new BehaviorSubject(isLogin);
+    this.userInfo = <BehaviorSubject<string>>new BehaviorSubject(isLogin ? loginObject.user : '');
   }
 
-
   login (user, password) {
-
     if(this.user === user && this.password === password) {
       const loginObject = { user: this.user, password: this.password };
       localStorage.setItem('loginObject', JSON.stringify(loginObject));
-      this.zone.run(() => {
-        this.authenticated = true;
-      });
+      setTimeout(() => {
+        this.authenticated.next(true);
+        this.userInfo.next(user);
+      },this.LOGIN_TIMEOUT);
     }
-
   }
 
   logout () {
     localStorage.removeItem('loginObject');
-    this.zone.run(() => {
-      this.authenticated = false;
-    });
+    this.authenticated.next(false);
+    this.userInfo.next('');
   }
 
-  isAuthenticated(): boolean {
-    return this.authenticated;
+  isAuthenticated(): Observable<boolean> {
+    return this.authenticated.asObservable();
   }
 
-  getUserInfo():string {
-    const loginObject = JSON.parse(localStorage.getItem('loginObject'));
-    return this.authenticated ? loginObject && loginObject.user : '';
+  getUserInfo(): Observable<string> {
+    return this.userInfo.asObservable();
   }
-
 }

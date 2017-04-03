@@ -5,8 +5,8 @@
             <div *ngIf="isAuthenticated">BreadCrumb</div>
         </div>
         <div class="login-group">
-            <div>{{currentUser}}</div>
-            <a href="#" (click)="onLogOutClick()">logoff</a>
+            <div>{{userInfo}}</div>
+            <a *ngIf="isAuthenticated" href="#" (click)="onLogOutClick()">logoff</a>
         </div>
     </div>
 

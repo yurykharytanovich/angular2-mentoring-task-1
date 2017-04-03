@@ -1,4 +1,5 @@
-import {Component, OnInit, Inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Observable} from "rxjs";
 
 @Component({
 	selector: 'main-header',
@@ -8,35 +9,50 @@ import {Component, OnInit, Inject, ChangeDetectionStrategy} from '@angular/core'
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit{
+    public query: string = '';
+    public user: string = '';
+    public password: string = '';
 
-	public query: string = '';
-  public currentUser: string = '';
-  public user: string = '';
-  public password: string = '';
-
-  isAuthenticated: boolean;
+    private isAuthenticated: boolean;
+    private _isAuthenticated: Observable<boolean>;
+    private userInfo: string;
+    private _userInfo: Observable<string>;
 	constructor(
-    @Inject('loginService') private loginService
-  ) {	}
+        @Inject('loginService') private loginService,
+        @Inject('loaderBlockService') private loaderBlockService,
+        private cd: ChangeDetectorRef
 
-  ngOnInit() {
-    this.currentUser = this.loginService.getUserInfo();
-    this.isAuthenticated = this.loginService.isAuthenticated();
-  }
+    ){}
+
+    ngOnInit() {
+        this.user = this.loginService.__user;
+        this.password = this.loginService.__password;
+        this._isAuthenticated = this.loginService.isAuthenticated();
+        this._isAuthenticated.subscribe((value) => {
+            this.isAuthenticated = value;
+            if(value) {
+                this.loaderBlockService.hide();
+            }
+            this.cd.markForCheck();
+        });
+
+        this._userInfo = this.loginService.getUserInfo();
+        this._userInfo.subscribe((value) => {
+            this.userInfo = value;
+            this.cd.markForCheck();
+        });
+    }
 
 	onFindClick() {
 		console.log(this.query)
 	}
 
-  onLoginClick() {
-    this.loginService.login(this.user, this.password);
-    this.isAuthenticated = this.loginService.isAuthenticated();
-    this.currentUser = this.loginService.getUserInfo();
-  }
+    onLoginClick() {
+        this.loaderBlockService.show();
+        this.loginService.login(this.user, this.password);
+    }
 
-  onLogOutClick() {
-    this.loginService.logout();
-    this.isAuthenticated = this.loginService.isAuthenticated();
-    this.currentUser = '';
-  }
+    onLogOutClick() {
+        this.loginService.logout();
+    }
 }

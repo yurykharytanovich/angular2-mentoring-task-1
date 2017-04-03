@@ -1,5 +1,9 @@
-import {Component, OnInit, Output, OnDestroy, Inject, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
+import {
+	Component, OnInit, Output, OnDestroy, Inject, EventEmitter, ChangeDetectionStrategy,
+	Input, ChangeDetectorRef
+} from '@angular/core';
 import Course from "../../core/entities/course.class";
+import {Observable} from "rxjs";
 
 @Component({
 	selector: 'courses',
@@ -9,18 +13,17 @@ import Course from "../../core/entities/course.class";
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
-	private courses: Course[] = [];
 	@Output() public requestDeleteConfirmation = new EventEmitter();
-
-
+	public courses: Observable<Course[]>;
 	constructor(
-    @Inject('coursesService') private coursesService
-  ) {}
+		@Inject('coursesService') private coursesService,
+		private cd: ChangeDetectorRef
+	) {}
 
 	public ngOnInit() {
-      this.courses = this.coursesService.courses1;
-		this.coursesService.courses1.subscribe(() => {
-			debugger;
+      this.courses = this.coursesService.getCourses();
+		this.courses.subscribe(() => {
+			this.cd.markForCheck(); // marks path
 		})
 	}
 

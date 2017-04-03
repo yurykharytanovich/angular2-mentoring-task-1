@@ -2,3 +2,4 @@
 <courses *ngIf="isAuthenticated" (requestDeleteConfirmation)="onRequestDeleteConfirmation($event)"></courses>
 <main-footer></main-footer>
 <confirmation *ngIf="confirmationVisible" (confirmationResponse)="onConfirmationResponse($event)"></confirmation>
+<loader-block *ngIf="isBlocked"></loader-block>
