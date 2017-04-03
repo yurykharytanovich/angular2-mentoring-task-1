@@ -1,6 +1,6 @@
 import {
-	Component, OnInit, Output, OnDestroy, Inject, EventEmitter, ChangeDetectionStrategy,
-	Input, ChangeDetectorRef
+	Component, OnInit, Output, Inject, EventEmitter, ChangeDetectionStrategy,
+	ChangeDetectorRef
 } from '@angular/core';
 import Course from "../../core/entities/course.class";
 import {Observable} from "rxjs";
@@ -11,10 +11,11 @@ import {Observable} from "rxjs";
 	template: require('./courses.template.html'),
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoursesComponent implements OnInit, OnDestroy {
+export class CoursesComponent implements OnInit {
 
 	@Output() public requestDeleteConfirmation = new EventEmitter();
 	public courses: Observable<Course[]>;
+	private noCourses: boolean;
 	constructor(
 		@Inject('coursesService') private coursesService,
 		private cd: ChangeDetectorRef
@@ -22,12 +23,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
 	public ngOnInit() {
       this.courses = this.coursesService.getCourses();
-		this.courses.subscribe(() => {
+		this.courses.subscribe((value) => {
+			this.noCourses = value.length === 0;
 			this.cd.markForCheck(); // marks path
-		})
+		});
 	}
 
-	public ngOnDestroy() {
+	public onRateClick(event) {
+		this.coursesService.updateCourse(event.id, {topRated: !event.topRated});
 	}
 
 	public onItemDelete(event) {

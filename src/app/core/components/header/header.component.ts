@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit{
 	constructor(
         @Inject('loginService') private loginService,
         @Inject('loaderBlockService') private loaderBlockService,
+        @Inject('coursesService') private coursesService,
         private cd: ChangeDetectorRef
 
     ){}
@@ -44,7 +45,7 @@ export class HeaderComponent implements OnInit{
     }
 
 	onFindClick() {
-		console.log(this.query)
+        this.coursesService.setFilter(this.query);
 	}
 
     onLoginClick() {

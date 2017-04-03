@@ -7,6 +7,12 @@
     max-width: 450px;
     border: 1px solid black
 }
+.course-duration {
+    border: 1px solid black
+}
+.course-title {
+    border: 1px solid black
+}
 
 .course-info-header {
     margin: 10px;
@@ -25,4 +31,8 @@
 
 .button-group > button {
     margin: 5px;
+}
+
+.top-rated {
+    background: red;
 }

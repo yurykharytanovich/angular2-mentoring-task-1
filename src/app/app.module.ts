@@ -11,14 +11,18 @@ import {LoginService} from "./services/login.service";
 import {ModalsModule} from "./modals/modals.module";
 import {LoaderBlockModule} from "./core/components/loader-block/loader-block.module";
 import {LoaderBlockService} from "./services/loader-block.service";
+import { DirectivesModule } from './core/directives/directives.module';
+import { MyFilterPipe } from './pipes/my-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MyFilterPipe,
   ],
   imports: [
     BrowserModule,
     LoaderBlockModule,
+      DirectivesModule,
     FormsModule,
     HttpModule,
     HeaderModule,

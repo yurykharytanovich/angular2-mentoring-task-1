@@ -12,11 +12,17 @@ import Course from '../../../core/entities/course.class';
 export class CourseItemComponent {
 	@Input() public course: Course;
 	@Output() public delete = new EventEmitter();
+	@Output() public rateClick = new EventEmitter();
 
 	constructor() {
 	}
 
 	onDelete(id) {
 		this.delete.emit({id:id});
+	}
+
+	onRateClick(event, id, topRated) {
+		event.stopPropagation();
+		this.rateClick.emit({id, topRated});
 	}
 }

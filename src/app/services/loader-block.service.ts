@@ -4,7 +4,7 @@ import {BehaviorSubject} from "rxjs";
 @Injectable()
 export class LoaderBlockService {
   private _isBlocked: BehaviorSubject<boolean>;
-  public TIMEOUT: number = 2000;
+  public TIMEOUT: number = 200;
 
   constructor() {
     this._isBlocked = <BehaviorSubject<boolean>>new BehaviorSubject(false);

@@ -1,10 +1,11 @@
-<div class="course-item">
+<div class="course-item" [borderFresh]="course.startDate" [class.top-rated]="course.topRated">
     <div class="info-group">
+        <button class="rate-button" (click)="onRateClick($event,course.id,course.topRated)">{{course.topRated ? 'Unrate' : 'Rate'}}</button>
+        <div *ngIf="course.topRated">STAR</div>
         <div class="course-info-header">
-            <span>{{course.title}}</span>
-            <span>{{course.id}}</span>
-            <span>{{course.duration}}</span>
-            <span class="course-info-date">{{course.startDate.toString().slice(0,24)}}</span>
+            <span class="course-title">{{course.title | uppercase}}</span>
+            <span class="course-duration">{{course.duration | duration: 'hh h mm min'}}</span>
+            <span class="course-info-date">{{course.startDate | date: 'dd/MM/yyyy'}}</span>
         </div>
         <div>{{course.description}}</div>
     </div>

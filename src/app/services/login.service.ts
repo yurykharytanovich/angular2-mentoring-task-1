@@ -9,7 +9,7 @@ export class LoginService {
   private password: string = this.__password;
   private authenticated: BehaviorSubject<boolean>;
   private userInfo: BehaviorSubject<string>;
-  private LOGIN_TIMEOUT: number = 2000;
+  private LOGIN_TIMEOUT: number = 200;
   constructor() {
     const loginObject = JSON.parse(localStorage.getItem('loginObject'));
     const isLogin = loginObject && loginObject.user === this.user && loginObject.password === this.password;
